@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import static org.junit.Assert.assertEquals;
+
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class DemoApplicationTests {
@@ -25,7 +27,7 @@ public class DemoApplicationTests {
 		testService.insert("1", "123");
 
 		TestEntity one = testRepo.findOne("1");
-		System.out.println(one.getValue());
+		assertEquals("123", one.getValue());
 
 		try {
 			// This will throw an exception and roll-back its transaction
@@ -37,6 +39,6 @@ public class DemoApplicationTests {
 
 		// should still find the old, unmodified value
 		TestEntity two = testRepo.findOne("1");
-		System.out.println(two.getValue());
+		assertEquals("123", two.getValue());
 	}
 }
